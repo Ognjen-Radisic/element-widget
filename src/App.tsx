@@ -1,27 +1,37 @@
 import { useEffect, useState } from "react";
 import useDebounce from "./hooks/useDebounce";
 import "./App.scss";
+import Search from "./components/Search/Search";
+import Filter from "./components/Filter/Filter";
+import { baseArray, filterMapper } from "./constants";
+import { filterMapperType } from "./types";
 
 function App() {
-	const baseArray = [...Array(300).keys()].map((i) => i + 1);
 	const [isWidgetOpen, setIsWidgetOpen] = useState<boolean>(false);
 	const [mainSelectedItems, setMainSelectedItems] = useState<number[]>([]);
 	const [selectedItems, setSelectedItems] = useState<number[]>([]);
 	const [initialElements, setInitialElements] = useState<number[]>(baseArray);
 	const [searchField, setSearchField] = useState<string>("");
 	const debouncedValue = useDebounce(searchField, 600);
+	const [filter, setFilter] = useState<"noFilter" | "gt10" | "gt100" | "gt200">(
+		"noFilter"
+	);
 
 	useEffect(() => {
+		const arrFilterApplied = baseArray.filter(
+			(i) => i > (filterMapper as filterMapperType)[filter]
+		);
+		console.log(arrFilterApplied);
 		if (debouncedValue !== "") {
 			setInitialElements(
-				baseArray.filter((element) =>
+				arrFilterApplied.filter((element) =>
 					element.toString().includes(debouncedValue)
 				)
 			);
 		} else {
-			setInitialElements(baseArray);
+			setInitialElements(arrFilterApplied);
 		}
-	}, [debouncedValue, baseArray]);
+	}, [debouncedValue, filter]);
 
 	return (
 		<>
@@ -60,28 +70,8 @@ function App() {
 							<button onClick={() => setIsWidgetOpen(!isWidgetOpen)}>X</button>
 						</div>
 						<div className="widget-options">
-							<div className="widget-options-search">
-								<p>Search</p>
-								<input
-									type="text"
-									onChange={(e) => setSearchField(e.target.value)}
-								/>
-							</div>
-							<div className="widget-options-filter">
-								<p>Filter</p>
-								<select name="elementFilter">
-									<option value="noFilter">No filter</option>
-									<option value="gt10">
-										<span>&#62;</span>10
-									</option>
-									<option value="gt100">
-										<span>&#62;</span>100
-									</option>
-									<option value="gt200">
-										<span>&#62;</span>200
-									</option>
-								</select>
-							</div>
+							<Search onSearch={setSearchField} />
+							<Filter setFilter={setFilter} selectedFilter={filter} />
 						</div>
 						<div className="widget-body">
 							{initialElements.map((e) => {
@@ -136,6 +126,8 @@ function App() {
 								onClick={() => {
 									setSelectedItems([]);
 									setIsWidgetOpen(!isWidgetOpen);
+									setSearchField("");
+									setFilter("noFilter");
 								}}
 							>
 								Cancel
