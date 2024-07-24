@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import useDebounce from "./hooks/useDebounce";
-import "./App.scss";
-import Search from "./components/Search/Search";
-import Filter from "./components/Filter/Filter";
+
 import { baseArray, filterMapper } from "./constants";
 import { filterMapperType } from "./types";
+
+import Search from "./components/Search/Search";
+import Filter from "./components/Filter/Filter";
+import Item from "./components/Item/Item";
+import WidgetItem from "./components/WidgetItem/WidgetItem";
+
+import "./App.scss";
 
 function App() {
 	const [isWidgetOpen, setIsWidgetOpen] = useState<boolean>(false);
 	const [mainSelectedItems, setMainSelectedItems] = useState<number[]>([]);
-	const [selectedItems, setSelectedItems] = useState<number[]>([]);
+	const [widgetSelectedItems, setWidgetSelectedItems] = useState<number[]>([]);
 	const [initialElements, setInitialElements] = useState<number[]>(baseArray);
 	const [searchField, setSearchField] = useState<string>("");
 	const debouncedValue = useDebounce(searchField, 600);
@@ -21,7 +26,6 @@ function App() {
 		const arrFilterApplied = baseArray.filter(
 			(i) => i > (filterMapper as filterMapperType)[filter]
 		);
-		console.log(arrFilterApplied);
 		if (debouncedValue !== "") {
 			setInitialElements(
 				arrFilterApplied.filter((element) =>
@@ -33,105 +37,78 @@ function App() {
 		}
 	}, [debouncedValue, filter]);
 
+	const onWidgetInit = () => {
+		setInitialElements(baseArray);
+		setWidgetSelectedItems(mainSelectedItems);
+		setFilter("noFilter");
+		setSearchField("");
+		setIsWidgetOpen(!isWidgetOpen);
+	};
+
+	const onWidgetSave = () => {
+		setIsWidgetOpen(false);
+		setSearchField("");
+		setFilter("noFilter");
+		setMainSelectedItems(widgetSelectedItems);
+	};
+
+	const onWidgetCancel = () => {
+		setIsWidgetOpen(false);
+		setSearchField("");
+		setFilter("noFilter");
+		setWidgetSelectedItems([]);
+	};
+
 	return (
 		<>
 			<div className="app-container">
 				<h1>Select items</h1>
-				<h5>You currently have {mainSelectedItems.length} selected items</h5>
-				{mainSelectedItems.map((item) => {
-					return (
-						<div>
-							Element {item}{" "}
-							<span
-								onClick={() =>
-									setMainSelectedItems(
-										mainSelectedItems.filter((i) => i !== item)
-									)
-								}
-							>
-								X
-							</span>
-						</div>
-					);
-				})}
-				<button
-					onClick={() => {
-						setInitialElements(baseArray);
-						setSelectedItems(mainSelectedItems);
-						setIsWidgetOpen(!isWidgetOpen);
-					}}
-				>
-					Change my choice
-				</button>
+				<h5>
+					You currently have {mainSelectedItems.length} selected{" "}
+					{mainSelectedItems.length === 1 ? "item" : "items"}
+				</h5>
+				{mainSelectedItems.map((item) => (
+					<Item
+						displayItem={item}
+						removeAction={setMainSelectedItems}
+						removeFrom={mainSelectedItems}
+					/>
+				))}
+				<button onClick={onWidgetInit}>Change my choice</button>
 				{isWidgetOpen && (
 					<div className="widget-container">
 						<div className="widget-header">
 							<h5>Select items</h5>
-							<button onClick={() => setIsWidgetOpen(!isWidgetOpen)}>X</button>
+							<button onClick={onWidgetCancel}>X</button>
 						</div>
 						<div className="widget-options">
 							<Search onSearch={setSearchField} />
 							<Filter setFilter={setFilter} selectedFilter={filter} />
 						</div>
 						<div className="widget-body">
-							{initialElements.map((e) => {
-								return (
-									<div>
-										<input
-											type="checkbox"
-											id="scales"
-											name="scales"
-											onChange={() => setSelectedItems([...selectedItems, e])}
-											checked={
-												selectedItems.length ? selectedItems.includes(e) : false
-											}
-											disabled={selectedItems.length === 3}
-										/>
-										<label>Element {e}</label>
-									</div>
-								);
-							})}
+							{initialElements.map((item) => (
+								<WidgetItem
+									onCheckboxClick={setWidgetSelectedItems}
+									allWidgetItems={widgetSelectedItems}
+									oneWidgetItem={item}
+								/>
+							))}
 						</div>
 						<div className="widget-selected-title">
 							<h5>Current selected items:</h5>
 						</div>
 						<div className="widget-selected-items">
-							{selectedItems.map((item) => {
-								return (
-									<div>
-										Element {item}{" "}
-										<span
-											onClick={() =>
-												setSelectedItems(
-													selectedItems.filter((i) => i !== item)
-												)
-											}
-										>
-											X
-										</span>
-									</div>
-								);
-							})}
+							{widgetSelectedItems.map((item) => (
+								<Item
+									displayItem={item}
+									removeAction={setWidgetSelectedItems}
+									removeFrom={widgetSelectedItems}
+								/>
+							))}
 						</div>
 						<div className="widget-ctas">
-							<button
-								onClick={() => {
-									setIsWidgetOpen(!isWidgetOpen);
-									setMainSelectedItems(selectedItems);
-								}}
-							>
-								Save
-							</button>
-							<button
-								onClick={() => {
-									setSelectedItems([]);
-									setIsWidgetOpen(!isWidgetOpen);
-									setSearchField("");
-									setFilter("noFilter");
-								}}
-							>
-								Cancel
-							</button>
+							<button onClick={onWidgetSave}>Save</button>
+							<button onClick={onWidgetCancel}>Cancel</button>
 						</div>
 					</div>
 				)}
