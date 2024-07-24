@@ -1,4 +1,5 @@
 import { FC } from "react";
+import "./WidgetItem.scss";
 
 interface WidgetItemProps {
 	onCheckboxClick: (val: string[]) => void;
@@ -12,24 +13,29 @@ const WidgetItem: FC<WidgetItemProps> = ({
 	oneWidgetItem,
 }) => {
 	return (
-		<div>
-			<input
-				type="checkbox"
-				id="scales"
-				name="scales"
-				onChange={() => {
-					if (allWidgetItems.includes(oneWidgetItem))
-						onCheckboxClick(allWidgetItems.filter((i) => i !== oneWidgetItem));
-					else {
-						onCheckboxClick([...allWidgetItems, oneWidgetItem]);
+		<div className="widget_item_wrapper">
+			<label className="widget_item_label">
+				<input
+					type="checkbox"
+					className="widget_item_checkbox"
+					onChange={() => {
+						if (allWidgetItems.includes(oneWidgetItem))
+							onCheckboxClick(
+								allWidgetItems.filter((i) => i !== oneWidgetItem)
+							);
+						else {
+							onCheckboxClick([...allWidgetItems, oneWidgetItem]);
+						}
+					}}
+					checked={
+						allWidgetItems.length
+							? allWidgetItems.includes(oneWidgetItem)
+							: false
 					}
-				}}
-				checked={
-					allWidgetItems.length ? allWidgetItems.includes(oneWidgetItem) : false
-				}
-				disabled={allWidgetItems.length === 3}
-			/>
-			<label>{oneWidgetItem}</label>
+					disabled={allWidgetItems.length === 3}
+				/>
+				{oneWidgetItem}
+			</label>
 		</div>
 	);
 };
