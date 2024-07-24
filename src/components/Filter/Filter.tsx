@@ -1,8 +1,10 @@
 import { FC } from "react";
+import { possibleFilterValues } from "../../types";
+import { possibleFilters } from "../../constants";
 
 interface FilterProps {
-	setFilter: (val: "noFilter" | "gt10" | "gt100" | "gt200") => void;
-	selectedFilter: "noFilter" | "gt10" | "gt100" | "gt200";
+	setFilter: (val: possibleFilterValues) => void;
+	selectedFilter: possibleFilterValues;
 }
 
 const Filter: FC<FilterProps> = ({ setFilter, selectedFilter }) => {
@@ -13,19 +15,31 @@ const Filter: FC<FilterProps> = ({ setFilter, selectedFilter }) => {
 				name="elementFilter"
 				value={selectedFilter}
 				onChange={(e) => {
-					setFilter(e.target.value as "noFilter" | "gt10" | "gt100" | "gt200");
+					setFilter(e.target.value as possibleFilterValues);
 				}}
 			>
-				<option value="noFilter" selected={selectedFilter === "noFilter"}>
+				<option
+					value={possibleFilters.noFilter}
+					selected={selectedFilter === possibleFilters.noFilter}
+				>
 					No filter
 				</option>
-				<option value="gt10" selected={selectedFilter === "gt10"}>
+				<option
+					value={possibleFilters.gt10}
+					selected={selectedFilter === possibleFilters.gt10}
+				>
 					<span>&#62;</span>10
 				</option>
-				<option value="gt100" selected={selectedFilter === "gt100"}>
+				<option
+					value={possibleFilters.gt100}
+					selected={selectedFilter === possibleFilters.gt100}
+				>
 					<span>&#62;</span>100
 				</option>
-				<option value="gt200" selected={selectedFilter === "gt200"}>
+				<option
+					value={possibleFilters.gt200}
+					selected={selectedFilter === possibleFilters.gt200}
+				>
 					<span>&#62;</span>200
 				</option>
 			</select>

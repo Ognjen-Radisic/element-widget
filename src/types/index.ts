@@ -4,3 +4,5 @@ export interface filterMapperType {
 	gt100: 100;
 	gt200: 200;
 }
+
+export type possibleFilterValues = "noFilter" | "gt10" | "gt100" | "gt200";

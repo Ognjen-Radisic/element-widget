@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import useDebounce from "./hooks/useDebounce";
 
-import { baseArray, filterMapper } from "./constants";
-import { filterMapperType } from "./types";
+import { baseArray, filterMapper, possibleFilters } from "./constants";
+import { filterMapperType, possibleFilterValues } from "./types";
 
 import Search from "./components/Search/Search";
 import Filter from "./components/Filter/Filter";
@@ -18,8 +18,8 @@ function App() {
 	const [initialElements, setInitialElements] = useState<string[]>(baseArray);
 	const [searchField, setSearchField] = useState<string>("");
 	const debouncedValue = useDebounce(searchField, 400);
-	const [filter, setFilter] = useState<"noFilter" | "gt10" | "gt100" | "gt200">(
-		"noFilter"
+	const [filter, setFilter] = useState<possibleFilterValues>(
+		possibleFilters.noFilter as possibleFilterValues
 	);
 
 	useEffect(() => {
@@ -41,7 +41,7 @@ function App() {
 	const onWidgetInit = () => {
 		setInitialElements(baseArray);
 		setWidgetSelectedItems(mainSelectedItems);
-		setFilter("noFilter");
+		setFilter(possibleFilters.noFilter as possibleFilterValues);
 		setSearchField("");
 		setIsWidgetOpen(!isWidgetOpen);
 	};
@@ -49,14 +49,14 @@ function App() {
 	const onWidgetSave = () => {
 		setIsWidgetOpen(false);
 		setSearchField("");
-		setFilter("noFilter");
+		setFilter(possibleFilters.noFilter as possibleFilterValues);
 		setMainSelectedItems(widgetSelectedItems);
 	};
 
 	const onWidgetCancel = () => {
 		setIsWidgetOpen(false);
 		setSearchField("");
-		setFilter("noFilter");
+		setFilter(possibleFilters.noFilter as possibleFilterValues);
 		setWidgetSelectedItems([]);
 	};
 
