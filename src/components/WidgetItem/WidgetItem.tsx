@@ -1,9 +1,9 @@
 import { FC } from "react";
 
 interface WidgetItemProps {
-	onCheckboxClick: (val: number[]) => void;
-	allWidgetItems: number[];
-	oneWidgetItem: number;
+	onCheckboxClick: (val: string[]) => void;
+	allWidgetItems: string[];
+	oneWidgetItem: string;
 }
 
 const WidgetItem: FC<WidgetItemProps> = ({
@@ -17,13 +17,19 @@ const WidgetItem: FC<WidgetItemProps> = ({
 				type="checkbox"
 				id="scales"
 				name="scales"
-				onChange={() => onCheckboxClick([...allWidgetItems, oneWidgetItem])}
+				onChange={() => {
+					if (allWidgetItems.includes(oneWidgetItem))
+						onCheckboxClick(allWidgetItems.filter((i) => i !== oneWidgetItem));
+					else {
+						onCheckboxClick([...allWidgetItems, oneWidgetItem]);
+					}
+				}}
 				checked={
 					allWidgetItems.length ? allWidgetItems.includes(oneWidgetItem) : false
 				}
 				disabled={allWidgetItems.length === 3}
 			/>
-			<label>Element {oneWidgetItem}</label>
+			<label>{oneWidgetItem}</label>
 		</div>
 	);
 };

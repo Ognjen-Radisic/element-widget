@@ -1,15 +1,15 @@
 import { FC } from "react";
 
 interface ItemProps {
-	displayItem: number;
-	removeAction: (val: number[]) => void;
-	removeFrom: number[];
+	displayItem: string;
+	removeAction: (val: string[]) => void;
+	removeFrom: string[];
 }
 
 const Item: FC<ItemProps> = ({ displayItem, removeAction, removeFrom }) => {
 	return (
 		<div>
-			Element {displayItem}{" "}
+			{displayItem}{" "}
 			<span
 				onClick={() =>
 					removeAction(removeFrom.filter((i) => i !== displayItem))

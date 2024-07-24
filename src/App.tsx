@@ -13,18 +13,19 @@ import "./App.scss";
 
 function App() {
 	const [isWidgetOpen, setIsWidgetOpen] = useState<boolean>(false);
-	const [mainSelectedItems, setMainSelectedItems] = useState<number[]>([]);
-	const [widgetSelectedItems, setWidgetSelectedItems] = useState<number[]>([]);
-	const [initialElements, setInitialElements] = useState<number[]>(baseArray);
+	const [mainSelectedItems, setMainSelectedItems] = useState<string[]>([]);
+	const [widgetSelectedItems, setWidgetSelectedItems] = useState<string[]>([]);
+	const [initialElements, setInitialElements] = useState<string[]>(baseArray);
 	const [searchField, setSearchField] = useState<string>("");
-	const debouncedValue = useDebounce(searchField, 600);
+	const debouncedValue = useDebounce(searchField, 400);
 	const [filter, setFilter] = useState<"noFilter" | "gt10" | "gt100" | "gt200">(
 		"noFilter"
 	);
 
 	useEffect(() => {
 		const arrFilterApplied = baseArray.filter(
-			(i) => i > (filterMapper as filterMapperType)[filter]
+			(i) =>
+				parseInt(i.split(" ")[1]) > (filterMapper as filterMapperType)[filter]
 		);
 		if (debouncedValue !== "") {
 			setInitialElements(
