@@ -68,13 +68,15 @@ function App() {
 					You currently have {mainSelectedItems.length} selected{" "}
 					{mainSelectedItems.length === 1 ? "item" : "items"}
 				</h5>
-				{mainSelectedItems.map((item) => (
-					<SelectedItem
-						displayItem={item}
-						removeAction={setMainSelectedItems}
-						removeFrom={mainSelectedItems}
-					/>
-				))}
+				<div className="selected_items_wrapper">
+					{mainSelectedItems.map((item) => (
+						<SelectedItem
+							displayItem={item}
+							removeAction={setMainSelectedItems}
+							removeFrom={mainSelectedItems}
+						/>
+					))}
+				</div>
 				<button onClick={onWidgetInit}>Change my choice</button>
 				{isWidgetOpen && (
 					<div className="widget-container">

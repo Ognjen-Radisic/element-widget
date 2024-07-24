@@ -13,9 +13,10 @@ const SelectedItem: FC<SelectedItemProps> = ({
 	removeFrom,
 }) => {
 	return (
-		<div>
-			{displayItem}{" "}
+		<div className="select_item">
+			<span className="select_item_element">{displayItem}</span>
 			<span
+				className="select_item_cancel"
 				onClick={() =>
 					removeAction(removeFrom.filter((i) => i !== displayItem))
 				}
