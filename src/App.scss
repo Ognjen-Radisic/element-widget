@@ -8,7 +8,7 @@
 	width: 620px;
 	padding: 30px;
 	color: #566171;
-	gap: 35px;
+	gap: 20px;
 	border-radius: 5px;
 	background: linear-gradient(170deg, #eafadf, #dceeee 80%) no-repeat 50% fixed;
 	box-shadow: -5px -2px 21px rgba(87, 100, 116, 0.3);
@@ -16,6 +16,7 @@
 
 .selected_items_wrapper {
 	display: flex;
+	height: 35px;
 	gap: 20px;
 }
 
@@ -26,7 +27,7 @@
 	padding: 30px;
 	color: #eeeff1;
 	border-radius: 5px;
-	background: linear-gradient(170deg, #1b2416, #376e6e 80%) no-repeat 50% fixed;
+	background: linear-gradient(170deg, #26a96c, #395e66 80%) no-repeat 50% fixed;
 	box-shadow: -5px -2px 21px rgba(87, 100, 116, 0.3);
 }
 
@@ -53,15 +54,52 @@
 	overflow-y: scroll;
 	height: 400px;
 	margin-bottom: 20px;
+	padding: 10px 15px;
 	background: linear-gradient(170deg, #1b2416, #060a0a 80%) no-repeat 50% fixed;
 }
 
 .widget-selected-title {
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 .widget-selected-items {
 	display: flex;
+	height: 35px;
 	gap: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
+}
+
+.widget-ctas {
+	display: flex;
+	gap: 15px;
+}
+
+.btn_change_choice {
+	background-color: #a98e5f;
+	color: white;
+	padding: 8px 16px;
+	border-radius: 3px;
+	&:hover {
+		background-color: #b9a178;
+	}
+}
+
+.btn_change_save {
+	background-color: #35be4c;
+	color: white;
+	padding: 8px 16px;
+	border-radius: 3px;
+	&:hover {
+		background-color: #40d459;
+	}
+}
+
+.btn_change_cancel {
+	background-color: #b83535;
+	color: white;
+	padding: 8px 16px;
+	border-radius: 3px;
+	&:hover {
+		background-color: #d44242;
+	}
 }

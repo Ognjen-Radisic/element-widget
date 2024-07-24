@@ -77,7 +77,11 @@ function App() {
 						/>
 					))}
 				</div>
-				<button onClick={onWidgetInit}>Change my choice</button>
+				<div>
+					<button className="btn_change_choice" onClick={onWidgetInit}>
+						Change my choice
+					</button>
+				</div>
 				{isWidgetOpen && (
 					<div className="widget-container">
 						<div className="widget-header">
@@ -110,8 +114,12 @@ function App() {
 							))}
 						</div>
 						<div className="widget-ctas">
-							<button onClick={onWidgetSave}>Save</button>
-							<button onClick={onWidgetCancel}>Cancel</button>
+							<button className="btn_change_save" onClick={onWidgetSave}>
+								Save
+							</button>
+							<button className="btn_change_cancel" onClick={onWidgetCancel}>
+								Cancel
+							</button>
 						</div>
 					</div>
 				)}

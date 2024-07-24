@@ -8,3 +8,14 @@
 html {
 	background: linear-gradient(170deg, #26a96c, #395e66 80%) no-repeat 50% fixed;
 }
+
+button {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+	transition: all 0.2s ease-in;
+}
