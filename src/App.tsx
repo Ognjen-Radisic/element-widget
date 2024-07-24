@@ -6,7 +6,7 @@ import { filterMapperType } from "./types";
 
 import Search from "./components/Search/Search";
 import Filter from "./components/Filter/Filter";
-import Item from "./components/Item/Item";
+import SelectedItem from "./components/SelectedItem/SelectedItem";
 import WidgetItem from "./components/WidgetItem/WidgetItem";
 
 import "./App.scss";
@@ -69,7 +69,7 @@ function App() {
 					{mainSelectedItems.length === 1 ? "item" : "items"}
 				</h5>
 				{mainSelectedItems.map((item) => (
-					<Item
+					<SelectedItem
 						displayItem={item}
 						removeAction={setMainSelectedItems}
 						removeFrom={mainSelectedItems}
@@ -100,7 +100,7 @@ function App() {
 						</div>
 						<div className="widget-selected-items">
 							{widgetSelectedItems.map((item) => (
-								<Item
+								<SelectedItem
 									displayItem={item}
 									removeAction={setWidgetSelectedItems}
 									removeFrom={widgetSelectedItems}

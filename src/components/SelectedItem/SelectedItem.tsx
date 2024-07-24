@@ -1,12 +1,17 @@
 import { FC } from "react";
+import "./SelectedItem.scss";
 
-interface ItemProps {
+interface SelectedItemProps {
 	displayItem: string;
 	removeAction: (val: string[]) => void;
 	removeFrom: string[];
 }
 
-const Item: FC<ItemProps> = ({ displayItem, removeAction, removeFrom }) => {
+const SelectedItem: FC<SelectedItemProps> = ({
+	displayItem,
+	removeAction,
+	removeFrom,
+}) => {
 	return (
 		<div>
 			{displayItem}{" "}
@@ -21,4 +26,4 @@ const Item: FC<ItemProps> = ({ displayItem, removeAction, removeFrom }) => {
 	);
 };
 
-export default Item;
+export default SelectedItem;
