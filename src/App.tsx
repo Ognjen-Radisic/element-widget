@@ -15,7 +15,8 @@ function App() {
 	const [isWidgetOpen, setIsWidgetOpen] = useState<boolean>(false);
 	const [mainSelectedItems, setMainSelectedItems] = useState<string[]>([]);
 	const [widgetSelectedItems, setWidgetSelectedItems] = useState<string[]>([]);
-	const [initialElements, setInitialElements] = useState<string[]>(baseArray);
+	const [displayedElements, setDisplayedElements] =
+		useState<string[]>(baseArray);
 	const [searchField, setSearchField] = useState<string>("");
 	const debouncedValue = useDebounce(searchField, 400);
 	const [filter, setFilter] = useState<possibleFilterValues>(
@@ -28,18 +29,18 @@ function App() {
 				parseInt(i.split(" ")[1]) > (filterMapper as filterMapperType)[filter]
 		);
 		if (debouncedValue !== "") {
-			setInitialElements(
+			setDisplayedElements(
 				arrFilterApplied.filter((element) =>
 					element.toString().includes(debouncedValue)
 				)
 			);
 		} else {
-			setInitialElements(arrFilterApplied);
+			setDisplayedElements(arrFilterApplied);
 		}
 	}, [debouncedValue, filter]);
 
 	const onWidgetInit = () => {
-		setInitialElements(baseArray);
+		setDisplayedElements(baseArray);
 		setWidgetSelectedItems(mainSelectedItems);
 		setFilter(possibleFilters.noFilter as possibleFilterValues);
 		setSearchField("");
@@ -93,11 +94,11 @@ function App() {
 							<Filter setFilter={setFilter} selectedFilter={filter} />
 						</div>
 						<div className="widget-body">
-							{initialElements.map((item) => (
+							{displayedElements.map((item) => (
 								<WidgetItem
 									onCheckboxClick={setWidgetSelectedItems}
-									allWidgetItems={widgetSelectedItems}
-									oneWidgetItem={item}
+									checkedWidgetItems={widgetSelectedItems}
+									widgetItem={item}
 								/>
 							))}
 						</div>

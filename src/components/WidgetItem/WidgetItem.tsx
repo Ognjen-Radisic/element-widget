@@ -3,14 +3,14 @@ import "./WidgetItem.scss";
 
 interface WidgetItemProps {
 	onCheckboxClick: (val: string[]) => void;
-	allWidgetItems: string[];
-	oneWidgetItem: string;
+	checkedWidgetItems: string[];
+	widgetItem: string;
 }
 
 const WidgetItem: FC<WidgetItemProps> = ({
 	onCheckboxClick,
-	allWidgetItems,
-	oneWidgetItem,
+	checkedWidgetItems,
+	widgetItem,
 }) => {
 	return (
 		<div className="widget_item_wrapper">
@@ -19,22 +19,25 @@ const WidgetItem: FC<WidgetItemProps> = ({
 					type="checkbox"
 					className="widget_item_checkbox"
 					onChange={() => {
-						if (allWidgetItems.includes(oneWidgetItem))
+						if (checkedWidgetItems.includes(widgetItem))
 							onCheckboxClick(
-								allWidgetItems.filter((i) => i !== oneWidgetItem)
+								checkedWidgetItems.filter((i) => i !== widgetItem)
 							);
 						else {
-							onCheckboxClick([...allWidgetItems, oneWidgetItem]);
+							onCheckboxClick([...checkedWidgetItems, widgetItem]);
 						}
 					}}
 					checked={
-						allWidgetItems.length
-							? allWidgetItems.includes(oneWidgetItem)
+						checkedWidgetItems.length
+							? checkedWidgetItems.includes(widgetItem)
 							: false
 					}
-					disabled={allWidgetItems.length === 3}
+					disabled={
+						!checkedWidgetItems.includes(widgetItem) &&
+						checkedWidgetItems.length === 3
+					}
 				/>
-				{oneWidgetItem}
+				{widgetItem}
 			</label>
 		</div>
 	);
