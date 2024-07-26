@@ -72,6 +72,7 @@ function App() {
 				<div className="selected_items_wrapper">
 					{mainSelectedItems.map((item) => (
 						<SelectedItem
+							key={item}
 							displayItem={item}
 							removeAction={setMainSelectedItems}
 							removeFrom={mainSelectedItems}
@@ -96,6 +97,7 @@ function App() {
 						<div className="widget-body">
 							{displayedElements.map((item) => (
 								<WidgetItem
+									key={item}
 									onCheckboxClick={setWidgetSelectedItems}
 									checkedWidgetItems={widgetSelectedItems}
 									widgetItem={item}
@@ -108,6 +110,7 @@ function App() {
 						<div className="widget-selected-items">
 							{widgetSelectedItems.map((item) => (
 								<SelectedItem
+									key={item}
 									displayItem={item}
 									removeAction={setWidgetSelectedItems}
 									removeFrom={widgetSelectedItems}

@@ -18,30 +18,10 @@ const Filter: FC<FilterProps> = ({ setFilter, selectedFilter }) => {
 					setFilter(e.target.value as possibleFilterValues);
 				}}
 			>
-				<option
-					value={possibleFilters.noFilter}
-					selected={selectedFilter === possibleFilters.noFilter}
-				>
-					No filter
-				</option>
-				<option
-					value={possibleFilters.gt10}
-					selected={selectedFilter === possibleFilters.gt10}
-				>
-					<span>&#62;</span>10
-				</option>
-				<option
-					value={possibleFilters.gt100}
-					selected={selectedFilter === possibleFilters.gt100}
-				>
-					<span>&#62;</span>100
-				</option>
-				<option
-					value={possibleFilters.gt200}
-					selected={selectedFilter === possibleFilters.gt200}
-				>
-					<span>&#62;</span>200
-				</option>
+				<option value={possibleFilters.noFilter}>No filter</option>
+				<option value={possibleFilters.gt10}>&#62;10</option>
+				<option value={possibleFilters.gt100}>&#62;100</option>
+				<option value={possibleFilters.gt200}>&#62;200</option>
 			</select>
 		</div>
 	);
