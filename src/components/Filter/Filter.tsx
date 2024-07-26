@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { possibleFilterValues } from "../../types";
 import { possibleFilters } from "../../constants";
+import "./Filter.scss";
 
 interface FilterProps {
 	setFilter: (val: possibleFilterValues) => void;

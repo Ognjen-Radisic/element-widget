@@ -65,10 +65,10 @@ function App() {
 		<>
 			<div className="app-container">
 				<h1>Select items</h1>
-				<h5>
+				<h4>
 					You currently have {mainSelectedItems.length} selected{" "}
 					{mainSelectedItems.length === 1 ? "item" : "items"}
-				</h5>
+				</h4>
 				<div className="selected_items_wrapper">
 					{mainSelectedItems.map((item) => (
 						<SelectedItem
@@ -87,8 +87,10 @@ function App() {
 				{isWidgetOpen && (
 					<div className="widget-container">
 						<div className="widget-header">
-							<h5>Select items</h5>
-							<button onClick={onWidgetCancel}>X</button>
+							<h4>Select items</h4>
+							<button className="btn_close_x" onClick={onWidgetCancel}>
+								X
+							</button>
 						</div>
 						<div className="widget-options">
 							<Search onSearch={setSearchField} />
@@ -105,7 +107,7 @@ function App() {
 							))}
 						</div>
 						<div className="widget-selected-title">
-							<h5>Current selected items:</h5>
+							<h4>Current selected items:</h4>
 						</div>
 						<div className="widget-selected-items">
 							{widgetSelectedItems.map((item) => (

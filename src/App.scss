@@ -84,6 +84,13 @@
 	}
 }
 
+.btn_close_x {
+	font-weight: 600;
+	&:hover {
+		color: rgb(214, 214, 211);
+	}
+}
+
 .btn_change_save {
 	background-color: #35be4c;
 	color: white;

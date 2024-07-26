@@ -1,4 +1,5 @@
 import { FC } from "react";
+import "./Search.scss";
 
 interface SearchProps {
 	onSearch: (val: string) => void;

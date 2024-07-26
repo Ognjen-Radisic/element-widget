@@ -1,0 +1,20 @@
+.widget-options-search {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.widget-options-search input {
+	width: 160px;
+	appearance: none;
+	border: none;
+	outline: none;
+	border-bottom: 0.2em solid #0c3619;
+	background: rgb(255 255 255 / 56%);
+	border-radius: 0.2em 0.2em 0 0;
+	padding: 5px 10px 1px 6px;
+	font-size: 16px;
+	color: #373030;
+}
